@@ -1,0 +1,10 @@
+<h1>New York Times News</h1>
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search for news..."
+      class="search-input"
+    />
+    <button (click)="searchNews()" class="search-button">Search</button>
+  </div>

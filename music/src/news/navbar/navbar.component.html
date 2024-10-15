@@ -1,0 +1,22 @@
+<div class="navbar">
+  <div class="logo">NYT News</div>
+  <button class="toggle-button" (click)="toggleSidenav()">
+    ☰
+  </button>
+  <ul class="nav-links" [ngClass]="{'active': isNavbarOpen}">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/impressum">Impressum</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</div>
+
+<div class="sidenav" [ngClass]="{'active': isSidenavOpen}">
+  <button class="close-btn" (click)="closeSidenav()">✖</button>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/impressum">Impressum</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</div>
