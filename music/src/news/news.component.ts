@@ -17,11 +17,22 @@ export class NewsComponent implements OnInit {
 
   newsArticles: any[] = [];
   errorMessage: string = '';
+  isSearchMode: boolean = false;
 
   constructor(private newsService: NewsService) {}
 
   ngOnInit(): void {
     this.loadTopNews();
+  }
+
+  handleSearchResults(articles: any[], error: string) {
+    this.newsArticles = articles;
+    this.errorMessage = error;
+    this.isSearchMode = true;
+  }
+
+  resetSearch() {
+    this.isSearchMode = false;
   }
 
   loadTopNews(): void {

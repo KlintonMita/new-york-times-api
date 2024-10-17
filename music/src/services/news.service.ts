@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class NewsService {
-  private baseUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/news';
+  private baseUrl = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {}
 
@@ -15,8 +16,7 @@ export class NewsService {
   }
 
   searchNews(query: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/search`, {
-      params: { q: query },
-    });
+    return this.http.get<any>(`${this.apiUrl}?q=${query}`);
   }
+
 }

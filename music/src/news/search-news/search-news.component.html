@@ -1,10 +1,26 @@
 <h1>New York Times News</h1>
-  <div class="search-box">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      placeholder="Search for news..."
-      class="search-input"
-    />
-    <button (click)="searchNews()" class="search-button">Search</button>
-  </div>
+<div class="search-box">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Search for news..."
+    class="search-input"
+  />
+  <button (click)="searchNews()" class="search-button">Search</button>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<div *ngIf="newsArticles.length === 0 && !errorMessage" class="no-news">
+  No news available.
+</div>
+
+<div *ngIf="newsArticles.length > 0">
+  <ul class="news-list">
+    <li *ngFor="let article of newsArticles" class="news-item">
+      <h2>{{ article.title || article.headline.main }}</h2>
+      <p>{{ article.abstract || article.snippet }}</p>
+      <a [href]="article.url || article.web_url" target="_blank">Read more</a>
+    </li>
+  </ul>
+</div>

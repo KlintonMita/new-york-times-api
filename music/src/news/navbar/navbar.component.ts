@@ -16,10 +16,6 @@ export class NavbarComponent {
 
   constructor(private router: Router) {}
 
-  toggleNavbar() {
-    this.isNavbarOpen = !this.isNavbarOpen;
-  }
-
   toggleSidenav() {
     this.isSidenavOpen = !this.isSidenavOpen;
   }
