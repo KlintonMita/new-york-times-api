@@ -1,17 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule, NgModel } from '@angular/forms';
 import { NewsService } from '../../services/news.service';
+import { NewsComponent } from '../news.component';
 
 @Component({
   selector: 'app-search-news',
   templateUrl: './search-news.component.html',
   styleUrls: ['./search-news.component.scss'],
-  imports: [FormsModule, CommonModule],
   standalone: true,
+  imports: [FormsModule, CommonModule, NewsComponent],
 })
 export class SearchNewsComponent {
   searchQuery: string = '';
+  newsArticles: any[] = [];
+  errorMessage: string = '';
+  @Input() hideMainNews!: () => void;
+
   @Output() searchResults = new EventEmitter<{ articles: any[]; error: string }>();
 
   constructor(private newsService: NewsService) {}
@@ -20,13 +25,17 @@ export class SearchNewsComponent {
     this.newsService.searchNews(this.searchQuery).subscribe(
       (data) => {
         if (data.message === "No matches found") {
-          this.searchResults.emit({ articles: [], error: "No matches found" });
+          this.newsArticles = [];
+          this.errorMessage = "No matches found";
         } else {
-          this.searchResults.emit({ articles: data.results, error: "" });
+          this.newsArticles = data.results;
+          this.errorMessage = '';
+          this.hideMainNews();
         }
       },
       (error) => {
-        this.searchResults.emit({ articles: [], error: 'Error searching news: ' + error.message });
+        this.newsArticles = [];
+        this.errorMessage = 'Error searching news: ' + error.message;
       }
     );
   }
